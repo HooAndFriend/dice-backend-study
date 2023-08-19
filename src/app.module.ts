@@ -13,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmExModule } from './repository/typeOrmEx.module';
 import ViewModule from './api/view/view.module';
 import AdapterModule from './api/adapter/adapter.module';
+import PhoneModule from './api/phone/phone.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import AdapterModule from './api/adapter/adapter.module';
     TypeOrmExModule,
     LoggerModule,
     AuthModule,
+    PhoneModule,
     UploadModule,
     ViewModule,
     AdapterModule,
