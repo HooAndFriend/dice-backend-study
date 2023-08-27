@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 // ** enum, dto, entity Imports
 import BaseTimeEntity from 'src/common/entity/BaseTime.Entity';
 
-@Entity({ name: 'TB_PHONE_IH' })
+@Entity({ name: 'TB_PHONE_YN' })
 @Unique(['number'])
 export default class Phone extends BaseTimeEntity {
   @PrimaryGeneratedColumn()

@@ -5,11 +5,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export default class RequestPhoneSaveDto {
-  @ApiProperty({ example: '김인후', type: 'string' })
+  @ApiProperty({ example: '임유나', type: 'string' })
   @IsString()
   name: string;
 
-  @ApiProperty({ example: '01063057848', type: 'string' })
+  @ApiProperty({ example: '01033618490', type: 'string' })
   @IsString()
   phone: string;
 }
