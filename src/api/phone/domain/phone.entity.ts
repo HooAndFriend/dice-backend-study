@@ -18,6 +18,6 @@ export default class Phone extends BaseTimeEntity {
   number: string;
 
 
-  @ManyToOne(() => User, (user) => user.phone)
+  @ManyToOne(() => User, (user) => user.id)
   user: User
 }

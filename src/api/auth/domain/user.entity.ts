@@ -1,10 +1,11 @@
 // ** Typeorm Imports
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 // ** enum, dto, entity Imports
 import BaseTimeEntity from 'src/common/entity/BaseTime.Entity';
 import { UserRole } from '../dto/user.role';
 import { Exclude } from 'class-transformer';
+import Phone from 'src/api/phone/domain/phone.entity';
 
 @Entity({ name: 'tbl_user' })
 @Unique(['email'])
@@ -17,6 +18,9 @@ export default class User extends BaseTimeEntity {
 
   @Column({ type: 'varchar', length: 120 })
   password: string;
+
+  /*@OneToMany(() => Phone, (phone) => phone.user)
+  phones: Phone[]*/
 
   @Column({ nullable: true })
   @Exclude()
