@@ -79,7 +79,6 @@ export default class PhoneServiceImpl {
     return CommonResponse.of({
       statusCode: 200,
       message: '전화번호를 업데이트합니다.',
-      data: updatePhone
     });
   }
 
@@ -98,7 +97,6 @@ export default class PhoneServiceImpl {
     return CommonResponse.of({
       statusCode: 200,
       message: '전화번호를 삭제합니다.',
-      data: deletePhone
     });
   }
 
