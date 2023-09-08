@@ -1,5 +1,5 @@
 // ** Nest Imports
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import PhoneRepository from '../repository/phone.repository';
 
 // ** enum, dto, entity, types Imports
@@ -44,7 +44,7 @@ export default class PhoneService {
     });
 
     if (!findPhone) {
-      throw new BadRequestException('NOT Exist Phone Number');
+      throw new NotFoundException('Phone NOT Found');
     }
 
     return CommonResponse.of({
@@ -76,7 +76,7 @@ export default class PhoneService {
     });
 
     if (!findPhone) {
-      throw new BadRequestException('NOT Exist Phone Number');
+      throw new NotFoundException('Phone NOT Found');
     }
 
     findPhone.name = dto.name
@@ -100,7 +100,7 @@ export default class PhoneService {
     });
 
     if (!findPhone) {
-      throw new BadRequestException('NOT Exist Phone Number');
+      throw new NotFoundException('Phone NOT Found');
     }
 
     this.phoneRepository.delete(id)
