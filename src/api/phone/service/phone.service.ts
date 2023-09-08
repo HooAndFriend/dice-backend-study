@@ -40,7 +40,7 @@ export default class PhoneService {
   ): Promise<CommonResponse<any>> {
     
     const findPhone = await this.phoneRepository.findOne({
-      where: { id: id },
+      where: { id },
     });
 
     if (!findPhone) {
@@ -72,7 +72,7 @@ export default class PhoneService {
   ): Promise<CommonResponse<any>> {
 
     const findPhone = await this.phoneRepository.findOne({
-      where: { id: id },
+      where: { id },
     });
 
     if (!findPhone) {
@@ -96,7 +96,7 @@ export default class PhoneService {
   ): Promise<CommonResponse<any>> {
 
     const findPhone = await this.phoneRepository.findOne({
-      where: { id: id },
+      where: { id },
     });
 
     if (!findPhone) {
