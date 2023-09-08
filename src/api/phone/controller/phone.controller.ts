@@ -1,5 +1,5 @@
 // ** Nest Imports
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 
 // ** enum, dto, entity Imports
 
@@ -13,6 +13,8 @@ import {
 import RequestPhoneSaveDto from '../dto/phone.save.dto';
 import CommonResponse from 'src/common/dto/api.response';
 import PhoneServiceImpl from '../service/phone.service';
+import { RequestWithUsernDto } from 'src/common/dto/request.user.dto';
+import JwtAccessGuard from 'src/api/auth/passport/auth.jwt-access.guard';
 
 @ApiTags('Phone')
 @Controller('phone')
@@ -26,11 +28,13 @@ export default class PhoneController {
     description: '전화번호 저장',
     type: CommonResponse,
   })
+  @UseGuards(JwtAccessGuard)
   @Post()
   public async savePhone(
     @Body() dto: RequestPhoneSaveDto,
+    @Req() {user}: RequestWithUsernDto
   ): Promise<CommonResponse<any>> {
-    return await this.phoneService.savePhone(dto);
+    return await this.phoneService.savePhone(dto, user);
   }
 
   @ApiOperation({ summary: '전화번호 전체 조회' })
@@ -39,9 +43,12 @@ export default class PhoneController {
     description: '전화번호 전체 조회',
     type: CommonResponse,
   })
+  @UseGuards(JwtAccessGuard)
   @Get()
-  public async findAll() : Promise<CommonResponse<any>> {
-    return await this.phoneService.findAll();
+  public async findAll(
+    @Req() {user}: RequestWithUsernDto
+  ) : Promise<CommonResponse<any>> {
+    return await this.phoneService.findAll(user);
   }
 
   @ApiOperation({ summary: '전화번호 조회' })

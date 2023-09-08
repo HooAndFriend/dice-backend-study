@@ -58,9 +58,9 @@ export default class PhoneService {
 
   }
 
-  public async findAll(): Promise<CommonResponse<any>> {
+  public async findAll(user: User): Promise<CommonResponse<any>> {
 
-    const findPhoneList = await this.phoneRepository.find();
+    const findPhoneList = await this.phoneRepository.find({where: {id: user.id}});
 
     return CommonResponse.of({
       statusCode: 200,
