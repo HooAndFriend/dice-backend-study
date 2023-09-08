@@ -50,7 +50,7 @@ export default class PhoneController {
     description: '전화번호 조회',
     type: CommonResponse,
   })
-  @Get(':id')
+  @Get('/:id')
   public async findPhone(
     @Param('id') id: number
   ) : Promise<CommonResponse<any>> {
