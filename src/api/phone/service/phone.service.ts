@@ -1,16 +1,18 @@
 // ** Nest Imports
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UseGuards } from '@nestjs/common';
 import PhoneRepository from '../repository/phone.repository';
 
 // ** enum, dto, entity, types Imports
 import CommonResponse from 'src/common/dto/api.response';
 import RequestPhoneSaveDto from '../dto/phone.save.dto';
 import { BadRequestException } from 'src/exception/customException';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Injectable()
 export default class PhoneServiceImpl {
   constructor(private readonly phoneRepository: PhoneRepository) {}
 
+  @UseGuards(RolesGuard)
   public async savePhone(
     dto: RequestPhoneSaveDto,
   ): Promise<CommonResponse<any>> {
@@ -36,6 +38,7 @@ export default class PhoneServiceImpl {
   }
 
   //단일 조회
+  @UseGuards(RolesGuard)
   public async findOnePhone(
     id: number,
     ):  Promise<CommonResponse<any>> {
@@ -53,6 +56,7 @@ export default class PhoneServiceImpl {
   }
 
   //전체 조회
+  @UseGuards(RolesGuard)
   public async findAllPhone(): Promise<CommonResponse<any>>{
     
     const phones = await this.phoneRepository.find();
@@ -64,6 +68,7 @@ export default class PhoneServiceImpl {
     });
   }
 
+  @UseGuards(RolesGuard)
   public async updatePhone(
     id : number,
     dto: RequestPhoneSaveDto,
@@ -82,6 +87,7 @@ export default class PhoneServiceImpl {
     });
   }
 
+  @UseGuards(RolesGuard)
   public async deletePhone(
     id : number,
   ): Promise<CommonResponse<any>>{
