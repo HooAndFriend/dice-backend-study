@@ -39,12 +39,11 @@ export default class PhoneService {
   }
 
   public async findPhone(
-    id: number
+    id: number,
+    user: User
   ): Promise<CommonResponse<any>> {
     
-    const findPhone = await this.phoneRepository.findOne({
-      where: { id },
-    });
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
 
     if (!findPhone) {
       throw new NotFoundException('Phone NOT Found');
@@ -60,30 +59,29 @@ export default class PhoneService {
 
   public async findAll(user: User): Promise<CommonResponse<any>> {
 
-    const findPhoneList = await this.phoneRepository.find({where: {id: user.id}});
+    const [findPhoneList, count] = await this.phoneRepository.findAllByUser(user.id);
 
     return CommonResponse.of({
       statusCode: 200,
       message: '전화번호를 전체 조회했습니다.',
-      data: findPhoneList,
+      data: {findPhoneList, count},
     });
   }
 
   public async updatePhone(
     id: number,
+    user: User,
     dto: RequestPhoneSaveDto
   ): Promise<CommonResponse<any>> {
 
-    const findPhone = await this.phoneRepository.findOne({
-      where: { id },
-    });
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
 
     if (!findPhone) {
       throw new NotFoundException('Phone NOT Found');
     }
 
-    findPhone.name = dto.name
-    findPhone.number = dto.phone
+    findPhone.name = dto.name;
+    findPhone.number = dto.phone;
 
     this.phoneRepository.save(findPhone)
 
@@ -95,12 +93,11 @@ export default class PhoneService {
   }
 
   public async deletePhone(
-    id: number
+    id: number,
+    user: User
   ): Promise<CommonResponse<any>> {
 
-    const findPhone = await this.phoneRepository.findOne({
-      where: { id },
-    });
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
 
     if (!findPhone) {
       throw new NotFoundException('Phone NOT Found');
