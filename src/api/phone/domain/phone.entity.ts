@@ -24,7 +24,7 @@ export default class Phone extends BaseTimeEntity {
   number: string;
 
   /**
-   * ManyToOne
+   * OneToMany
    */
   @ManyToOne(() => User, (user) => user.phone)
   user: User;
