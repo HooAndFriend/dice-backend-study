@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 // ** Custom Module Imports
 import { CustomRepository } from 'src/repository/typeorm-ex.decorator';
 import Phone from '../domain/phone.entity';
-import RequestPhoneFindDto from '../dto/phone.find.dto';
 
 @CustomRepository(Phone)
 export default class PhoneRepository extends Repository<Phone> {
