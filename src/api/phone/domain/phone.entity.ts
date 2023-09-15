@@ -1,5 +1,11 @@
 // ** Typeorm Imports
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 // ** enum, dto, entity Imports
 import BaseTimeEntity from 'src/common/entity/BaseTime.Entity';
@@ -11,12 +17,17 @@ export default class Phone extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 30, name: 'phone_name' })
-  name: string; 
+  @Column({ type: 'varchar', length: 30, name: 'phone_name', comment: '이름' })
+  name: string;
 
-  @Column({ type: 'varchar', length: 30, name: 'phone_number' })
+  @Column({
+    type: 'varchar',
+    length: 30,
+    name: 'phone_number',
+    comment: '전화번호',
+  })
   number: string;
-  
+
   @ManyToOne(() => User, (user) => user.phone)
   user: User;
 }
