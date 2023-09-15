@@ -14,14 +14,14 @@ export default class PhoneService {
 
   public async savePhone(
     dto: RequestPhoneSaveDto,
-    user: User
+    user: User,
   ): Promise<CommonResponse<any>> {
     const findPhone = await this.phoneRepository.findOne({
       where: { number: dto.phone },
     });
 
     if (findPhone) {
-      throw new BadRequestException('Exist Phone Number');
+      throw new BadRequestException('이미 존재하는 번호입니다.');
     }
 
     await this.phoneRepository.save(
@@ -38,77 +38,69 @@ export default class PhoneService {
     });
   }
 
-  public async findPhone(
-    id: number,
-    user: User
-  ): Promise<CommonResponse<any>> {
-    
-    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
+  public async findPhone(id: number, user: User): Promise<CommonResponse<any>> {
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id);
 
     if (!findPhone) {
-      throw new NotFoundException('Phone NOT Found');
+      throw new NotFoundException('전화번호를 찾을 수 없습니다.');
     }
 
     return CommonResponse.of({
       statusCode: 200,
-      message: '전화번호를 조회했습니다.',
+      message: '전화번호를 조회합니다.',
       data: findPhone,
     });
-
   }
 
   public async findAll(user: User): Promise<CommonResponse<any>> {
-
-    const [findPhoneList, count] = await this.phoneRepository.findAllByUser(user.id);
+    const [findPhoneList, count] = await this.phoneRepository.findAllByUser(
+      user.id,
+    );
 
     return CommonResponse.of({
       statusCode: 200,
-      message: '전화번호를 전체 조회했습니다.',
-      data: {findPhoneList, count},
+      message: '전화번호를 전체 조회합니다.',
+      data: { findPhoneList, count },
     });
   }
 
   public async updatePhone(
     id: number,
     user: User,
-    dto: RequestPhoneSaveDto
+    dto: RequestPhoneSaveDto,
   ): Promise<CommonResponse<any>> {
-
-    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id);
 
     if (!findPhone) {
-      throw new NotFoundException('Phone NOT Found');
+      throw new NotFoundException('전화번호를 찾을 수 없습니다.');
     }
 
     findPhone.name = dto.name;
     findPhone.number = dto.phone;
 
-    await this.phoneRepository.save(findPhone)
+    await this.phoneRepository.save(findPhone);
 
     return CommonResponse.of({
       statusCode: 200,
       message: '전화번호를 수정합니다.',
     });
-
   }
 
   public async deletePhone(
     id: number,
-    user: User
+    user: User,
   ): Promise<CommonResponse<any>> {
-
-    const findPhone = await this.phoneRepository.findOneByUser(id, user.id)
+    const findPhone = await this.phoneRepository.findOneByUser(id, user.id);
 
     if (!findPhone) {
-      throw new NotFoundException('Phone NOT Found');
+      throw new NotFoundException('전화번호를 찾을 수 없습니다.');
     }
 
-    await this.phoneRepository.delete(id)
+    await this.phoneRepository.delete(id);
 
     return CommonResponse.of({
       statusCode: 200,
       message: '전화번호를 삭제합니다.',
     });
   }
-
 }
