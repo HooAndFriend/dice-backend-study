@@ -17,7 +17,6 @@ export default class Phone extends BaseTimeEntity {
   @Column({ type: 'varchar', length: 30, name: 'phone_number' })
   number: string;
 
-
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.phones)
   user: User
 }

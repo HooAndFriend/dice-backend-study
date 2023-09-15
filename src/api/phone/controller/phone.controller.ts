@@ -8,6 +8,9 @@ import {
   Get,
   Query,
   ValidationPipe,
+  Param,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 
 // ** Swagger Imports
@@ -59,6 +62,32 @@ export default class PhoneController {
     @Req() { user }: RequestWithUsernDto,
   ): Promise<CommonResponse<any>> {
     return await this.phoneService.findPhoneList(params, user);
+  }
+
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: '전화번호 업데이트' })
+  @ApiResponse(PhoneResponse.updatePhone[200])
+  @UseGuards(JwtAccessGuard)
+  @Patch()
+  public async updatePhone(
+    @Param('id') id:number,
+    @Body() dto: RequestPhoneSaveDto,
+    @Req() { user }: RequestWithUsernDto,
+  ): Promise<CommonResponse<any>> {
+    return await this.phoneService.updatePhone(id, dto, user);
+  }
+
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: '전화번호 삭제' })
+  @ApiResponse(PhoneResponse.deletePhone[200])
+  @UseGuards(JwtAccessGuard)
+  @Delete()
+  public async deletePhone(
+    @Param('id') id:number,
+    @Body() dto: RequestPhoneSaveDto,
+    @Req() { user }: RequestWithUsernDto,
+  ): Promise<CommonResponse<any>> {
+    return await this.phoneService.deletePhone(id, user);
   }
 }
 

@@ -1,5 +1,5 @@
 // ** Typeorm Imports
-import { Repository } from 'typeorm';
+import { QueryBuilder, Repository } from 'typeorm';
 
 // ** Custom Module Imports
 import { CustomRepository } from 'src/repository/typeorm-ex.decorator';
@@ -20,19 +20,31 @@ export default class PhoneRepository extends Repository<Phone> {
 
     // ** Request에 name 있으면 where
     if (dto.name) {
-      queryBuilder.where('ho.userName LIKE :name', {
+      queryBuilder.where('phone.name LIKE :name', {
         name: `%${dto.name}%`,
       });
     }
 
     // ** Request에 number 있으면 where
     if (dto.number) {
-      queryBuilder.where('ho.userName LIKE :name', {
-        name: `%${dto.name}%`,
+      queryBuilder.where('phone.number LIKE :number', {
+        number: `%${dto.number}%`,
       });
     }
 
     // ** 쿼리 결과 리턴
     return await queryBuilder.getManyAndCount();
+
   }
+  public async checkUser(id: number, userId: number) {
+    const result = await this.createQueryBuilder('phone')
+      .select(['phone.id', 'phone.userId', 'phone.name', 'phone.number', 'phone.createdAt']) // 원하는 컬럼 선택
+      .where('phone.id = :id', { id })
+      .andWhere('phone.userId = :userId', { userId })
+      .getOne();
+  
+    return result;
+  }
+
+  
 }

@@ -19,8 +19,8 @@ export default class User extends BaseTimeEntity {
   @Column({ type: 'varchar', length: 120 })
   password: string;
 
-  /*@OneToMany(() => Phone, (phone) => phone.user)
-  phones: Phone[]*/
+ @OneToMany(() => Phone, (phone) => phone.user)
+  phones: Phone[]
 
   @Column({ nullable: true })
   @Exclude()

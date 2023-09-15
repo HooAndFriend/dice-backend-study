@@ -8,12 +8,12 @@ import { IsOptional, IsString } from 'class-validator';
 import RequestPagingDto from 'src/common/dto/paging.dto';
 
 export default class RequestPhoneFindDto extends RequestPagingDto {
-  @ApiProperty({ example: '01063057848', required: false })
+  @ApiProperty({ example: '01033618490', required: false })
   @IsOptional()
   @IsString()
   number: string;
 
-  @ApiProperty({ example: '김인후', required: false })
+  @ApiProperty({ example: '임유나', required: false })
   @IsOptional()
   @IsString()
   name: string;
