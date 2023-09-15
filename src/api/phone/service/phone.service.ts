@@ -83,7 +83,7 @@ export default class PhoneService {
     findPhone.name = dto.name;
     findPhone.number = dto.phone;
 
-    this.phoneRepository.save(findPhone)
+    await this.phoneRepository.save(findPhone)
 
     return CommonResponse.of({
       statusCode: 200,
@@ -103,7 +103,7 @@ export default class PhoneService {
       throw new NotFoundException('Phone NOT Found');
     }
 
-    this.phoneRepository.delete(id)
+    await this.phoneRepository.delete(id)
 
     return CommonResponse.of({
       statusCode: 200,
