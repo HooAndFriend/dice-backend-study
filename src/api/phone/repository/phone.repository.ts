@@ -17,12 +17,11 @@ export default class PhoneRepository extends Repository<Phone> {
                 'phone.userId',
             ])
             .where('phone.id = :id', {id})
-            .andWhere('phone.userId = :userId', {userId})
             .getOne();
     }
 
     public async findAllByUser(userId: number) {
-        const qb = this.createQueryBuilder('phone')
+        return this.createQueryBuilder('phone')
             .select([
                 'phone.id', 
                 'phone.name', 
@@ -30,8 +29,7 @@ export default class PhoneRepository extends Repository<Phone> {
                 'phone.userId',
             ])
             .where('phone.userId = :userId', {userId})
-
-            return qb.getManyAndCount();
+            .getManyAndCount();
     }
 
 
